@@ -8,18 +8,16 @@ permissions:
   id-token: write
   pull-requests: write
 jobs:
-  build:
+  build-dev:
     runs-on: ubuntu-latest
-    environment: ${{ matrix.env }}
-    strategy:
-      matrix:
-        env: [dev, uat]
-    
+    environment: dev
     steps:
-      - name: Set environment variables
-        run: |
-          echo "ENV=${{ vars.ENV }}" >> $GITHUB_ENV
-      
       - name: Print environment variable
-        run: |
-          echo ${{ env.ENV }}
+        run: echo ${{ vars.ENV }}
+
+  build-uat:
+    runs-on: ubuntu-latest
+    environment: uat
+    steps:
+      - name: Print environment variable
+        run: echo ${{ vars.ENV }}
