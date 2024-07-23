@@ -1,0 +1,28 @@
+name: test
+
+on:
+  push:
+
+
+permissions:
+  actions: read
+  checks: read
+  contents: read
+  id-token: write
+  pull-requests: write
+
+
+jobs:
+  build:
+    runs-on: 
+      - ubuntu-latest
+
+    environment: ${{ matrix.env }}
+
+    strategy:
+      matrix:
+        env: [dev, uat]
+    
+    steps:
+      - run: |
+          echo ${{ vars.ENV }}
