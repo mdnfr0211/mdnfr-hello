@@ -8,16 +8,14 @@ permissions:
   id-token: write
   pull-requests: write
 jobs:
-  build-dev:
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-      - name: Print environment variable
-        run: echo ${{ vars.ENV }}
+  build:
+    runs-on: 
+      - ubuntu-latest
+    environment: ${{ matrix.env }}
+    strategy:
+      matrix:
+        env: [dev, uat]
 
-  build-uat:
-    runs-on: ubuntu-latest
-    environment: uat
     steps:
-      - name: Print environment variable
-        run: echo ${{ vars.ENV }}
+      - run: |
+          echo ${{ vars.ENV }}
