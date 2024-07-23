@@ -1,28 +1,25 @@
 name: test
-
 on:
   push:
-
-
 permissions:
   actions: read
   checks: read
   contents: read
   id-token: write
   pull-requests: write
-
-
 jobs:
   build:
-    runs-on: 
-      - ubuntu-latest
-
+    runs-on: ubuntu-latest
     environment: ${{ matrix.env }}
-
     strategy:
       matrix:
         env: [dev, uat]
     
     steps:
-      - run: |
-          echo ${{ vars.ENV }}
+      - name: Set environment variables
+        run: |
+          echo "ENV=${{ vars.ENV }}" >> $GITHUB_ENV
+      
+      - name: Print environment variable
+        run: |
+          echo ${{ env.ENV }}
